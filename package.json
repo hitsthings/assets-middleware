@@ -1,0 +1,9 @@
+{
+  "name": "assets-middleware",
+  "version": "0.0.1",
+  "dependencies": {},
+  "~devDependencies": {
+    "jshint": "~2.1.9",
+    "jasmine-node": "~1.10.2"
+  }
+}
