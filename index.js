@@ -270,7 +270,7 @@ function assets(options) {
     options = options || {};
     
     var logger = options.logger || null;
-    var force = options.force || 'ifnewer';
+    var force = options.force === undefined ? 'ifnewer' : options.force;
     var src = normalizeSrc(options.src || './public');
     var dest = normalizeDest(options.dest || defaultDest);
     var prefix = options.prefix || '/';

@@ -321,4 +321,41 @@ describe('asset middleware', function() {
         }).toThrow();
         done();
     });
+
+    function forcedTest(force, next) {
+        var logged = '';
+        var once = makeOnce();
+        test({
+            logger : function(s) { logged += s + '\n'; },
+            src : inDir,
+            dest : outFile,
+            force : force
+        }, mockReq('GET', '/abc'), once(function then(err) {
+            next(err || new Error("Shouldn't call next when successfully served"));
+        }), once(function onResponseWriteEnd(written) {
+            next(null, logged);
+        }), once(function timeout(err) {
+            next(err || new Error('Unexpected error occured'));
+        }));
+    }
+
+    it('handles falsy and truthy forces', function(done) {
+        forcedTest(undefined, function(err, logged) {
+            if (err) return done(err);
+            // No expectations initially.
+            // No expectations when undefined (will probably use ifnewer).
+            
+            forcedTest(null, function(err, logged) {
+                if (err) return done(err);
+                expect(logged).toMatch('Serve existing file.');
+                
+                forcedTest({}, function(err, logged) {
+                    if (err) return done(err);
+                    expect(logged).toMatch('Forced.');
+
+                    done();
+                });
+            })
+        })
+    });
 });

@@ -183,4 +183,5 @@ And you're done!
 
 | Version | Changes |
 |---------|---------|
+| 0.0.2   | Respect falsy `force` values |
 | 0.0.1   | Initial npm publish |
