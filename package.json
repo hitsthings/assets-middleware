@@ -1,6 +1,13 @@
 {
   "name": "assets-middleware",
   "version": "0.0.3",
+  "description" : "Abstract asset middleware for compilation, concatenation, and post-processing.",
+  "author": {
+    "name": "Adam Ahmed",
+    "email": "hitsthings@gmail.com",
+    "url": "http://www.noiregrets.com"
+  },
+  "keywords" : [ "asset", "assets", "concatenation", "middleware" ],
   "repository" : "git@github.com:hitsthings/assets-middleware.git",
   "dependencies": {
     "mkdirp" : "0.3.5"
