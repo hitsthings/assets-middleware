@@ -89,6 +89,7 @@ function makeOnce() {
 
 function debugLogger(s,t) { console[t] ? console[t](s) : console.log(s); }
 function infoLogger(s,t) { console[t] && console[t](s); }
+function warnLogger(s,t) { t !== 'info' && console[t] && console[t](s); }
 
 describe('asset middleware', function() {
     beforeEach(setup);
@@ -322,6 +323,23 @@ describe('asset middleware', function() {
         done();
     });
 
+    it("ignores the output file when gathering input files", function(done) {
+        var once = makeOnce();
+        test({
+            logger : warnLogger,
+            src : inDir,
+            dest : path.join(inDir, 'a.js'),
+            force : true
+        }, mockReq('GET', '/abc'), once(function next(err) {
+            done(err || new Error("Shouldn't call next"));
+        }), once(function onWriteEnd(written) {
+            expect(written).toBe('BC');
+            done();
+        }), once(function timeout(err) {
+            done(err || new Error('Unexpected error occured'));
+        }));
+    });
+
     function forcedTest(force, next) {
         var logged = '';
         var once = makeOnce();
@@ -357,5 +375,23 @@ describe('asset middleware', function() {
                 });
             })
         })
+    });
+
+    it('can be used just for generation', function(done) {
+        var once = makeOnce();
+        test({
+            logger : infoLogger,
+            src : inDir,
+            dest : outFile,
+            force : true,
+            serve : false
+        }, mockReq('GET', '/abc'), once(function next(err) {
+            expect(err).toBeFalsy();
+            done();
+        }), once(function onWriteEnd(written) {
+            done(new Error('Should not have written to the response.'));
+        }), once(function timeout(err) {
+            done(err || new Error('Unexpected error occured'));
+        }));
     });
 });

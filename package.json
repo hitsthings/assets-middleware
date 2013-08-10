@@ -1,6 +1,6 @@
 {
   "name": "assets-middleware",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "repository" : "git@github.com:hitsthings/assets-middleware.git",
   "dependencies": {
     "mkdirp" : "0.3.5"

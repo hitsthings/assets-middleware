@@ -51,6 +51,7 @@ app.listen(8080);
 | `prefix`   | `'/'`            | `string`                                      | A prefix to remove from the URL path when converting it to a local file path. This is called before dest |
 | `encoding` | `'utf8'`         | `string`                                      | The encoding to use for reading and writing files. |
 | `force`    | `'ifnewer'`      | `true`, `false`, `'ifnewer'`                  | Where to force regeneration on every request (`true`), if the last generated file is older than any source file (`'ifnewer'`) or only if the file doesn't exist (`false`) |
+| `serve`    | `true`           | `true`, `false`                               | Whether to serve the generated file. If set to false, you'll have to use a static middleware to serve the file yourself. |
 | `logger`   | `null`           | `function(string, level)`                     | An optional logger function that is called with a string output and string log level (`'error'`, `'warn'`, `'info'`, `'debug'`) |
 | `pipeline` | streamy pipeline | `Object`                                      | An object where each key is a step and its value is the function to execute. See the pipeline tables below |
 
@@ -183,5 +184,6 @@ And you're done!
 
 | Version | Changes |
 |---------|---------|
+| 0.0.3   | Add `serve` option and ignore destination file when in a source directory. |
 | 0.0.2   | Respect falsy `force` values |
 | 0.0.1   | Initial npm publish |
