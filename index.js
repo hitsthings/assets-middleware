@@ -123,6 +123,10 @@ function defaultReduce(encoding) {
         if (writableSeed && readableInput) {
             pipe(seed, input.mapped, next);
         } else if (writableSeed) {
+            if (typeof input.mapped !== 'string' && !(input.mapped instanceof Buffer)) {
+                next(new Error('Mapped value was not a string or Readable: ' + input.mapped));
+                return;
+            }
             seed.write(input.mapped, encoding, function() { next(null, seed); });
         } else {
             if (seed && has.call(seed, 'content')) {

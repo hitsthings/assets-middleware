@@ -1,6 +1,6 @@
 {
   "name": "assets-middleware",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description" : "Abstract asset middleware for compilation, concatenation, and post-processing.",
   "author": {
     "name": "Adam Ahmed",
